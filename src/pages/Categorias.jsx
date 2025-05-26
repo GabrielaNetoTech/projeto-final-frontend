@@ -1,11 +1,10 @@
 import BuyBox from "../components/BuyBox";
+import ProductDetails from "../components/ProductDetails";
 
 
 const Categorias = () => {
     return ( 
-    <>      
-    <BuyBox />
-    </>
+    <h1>Categoria</h1>
     );
 }
  

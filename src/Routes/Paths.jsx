@@ -5,6 +5,8 @@ import MeusPedidos from "../pages/ProductViewPage";
 import HomePage from "../pages/HomePage"
 import PageLayout from "../layout/PageLayout";
 import NotFound from "../components/NotFound";
+import Product from "../components/Produto";
+
 
 const Paths = () => {
     return ( 
@@ -14,6 +16,7 @@ const Paths = () => {
                 <Route path="/" element={<PageLayout/>}>
                     <Route index element={ <HomePage /> } />
                     <Route path="/produtos" element={<Produtos />} />
+                    <Route path="/produto/:id" element={<Product />} />
                     <Route path="/categorias" element={<Categorias />} />
                     <Route path="/meuspedidos" element={<MeusPedidos />} />
                 </Route>

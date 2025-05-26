@@ -5,11 +5,11 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const HeaderContainer = styled.header`
-*{
+    *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+    }
 .div-container{
      margin: 0rem 2rem;
      padding: 1rem;
@@ -134,7 +134,7 @@ const TeclaEnter = (e) => {
             <div className="cadastrar-entrar-cart">
             <a className="cadastrar" href="#">Cadastre-se</a>
             <a className="entrar">Entrar</a>
-            <img src="./src/assets/mini-cart.svg" alt="" /> 
+            <img src="./src/assets/mini-cart.svg" alt="carrinho-de-compra" /> 
             </div>
            </form>
         </div>

@@ -1,5 +1,16 @@
+import styled from "styled-components";
 
-const ProductCard = ({image, name, price, priceDiscount}) => {
+const CardContainer = styled.div`
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  }
+`;
+
+const ProductCard = ({image, name, price, priceDiscount, onClick}) => {
 
      const formatarPreco = (valor) => {
     return new Intl.NumberFormat("en-US", {
@@ -10,7 +21,7 @@ const ProductCard = ({image, name, price, priceDiscount}) => {
   };
 
     return ( 
-        <div className="card">
+        <CardContainer className="card" onClick={onClick}>
             <div className="cardimagem">
                 <img src={image} alt={name}/>
             </div>
@@ -21,7 +32,7 @@ const ProductCard = ({image, name, price, priceDiscount}) => {
                     <h4>{formatarPreco(priceDiscount)}</h4>
                 </div>
             </div>   
-        </div>
+        </CardContainer>
     );
 }
  

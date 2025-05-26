@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 
-
 const OptionWrapper = styled.div`
   display: flex;
-  gap: 8px;         
+  gap: 10px;         
   flex-wrap: wrap;   
 `;
 
@@ -56,6 +55,8 @@ const ItemOpcao = styled.div`
   
 `;
 
+
+
 // Componente principal
 const ProductOptions = ({
   options = [],     // lista das opções (ex: ["39", "40", "41"] ou ["#000", "#FFF"])
@@ -66,10 +67,10 @@ const ProductOptions = ({
   const [selectedOption, setSelectedOption] = useState(null); // controla o valor selecionado
 
   return (
-      <OptionWrapper>
-      {options.map((option, index) => (
+    <OptionWrapper>
+      {options.map((option) => (
         <ItemOpcao
-          key={index}
+          key={option}
           shape={shape}
           type={type}
           radius={radius}

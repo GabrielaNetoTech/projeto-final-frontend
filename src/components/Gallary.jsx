@@ -6,16 +6,28 @@ import GalleryMini from "./GalleryMini";
 
 const Gallary = ({ images, showThumb }) => {
 
-  const SectionContainer = styled.section `
-    position: relative;
-    width: 100%;
-    margin: 0 auto;
+  const SectionContainer = styled.section`
+  position: relative; /* Importante para as setas */
+  width: 100%;
+  max-width: 98%; /* ou o tamanho desejado */
+  margin: 0 auto; /* centraliza */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   .imagem {
-    width: 700px;
-    height: 570px;
-    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 570px;
+    object-fit: cover;
     border-radius: 4px;
+  }
+
+  .imagens-produto{
+    width: 100%;
+    max-width: 98%; /* ou o tamanho desejado */
+    margin: 0 auto; /* centraliza */
+     object-fit: cover;
   }
 
   .botao {
@@ -25,6 +37,7 @@ const Gallary = ({ images, showThumb }) => {
     background-color: transparent;
     border: none;
     cursor: pointer;
+    z-index: 10;
   }
 
   .esquerda {
@@ -34,22 +47,21 @@ const Gallary = ({ images, showThumb }) => {
   .direita {
     right: 10px;
   }
-  `;
+`;
 
   const MiniaturasContainer = styled.section`
         .mini {
         display: flex;
         flex-direction: row; 
         width: 100%;
-        gap: 10px;
+        gap: 12px;
         margin-top: 10px;
         margin-bottom: 10px;
         }
-        
 
         img{
-          border-radius: 8px;
-          width: 15%;
+          border-radius: 4px;
+          width: 18.6%;
         }
 
 `;
@@ -70,7 +82,8 @@ const Gallary = ({ images, showThumb }) => {
   return ( 
     <>
     <SectionContainer>
-      {atualPag > 0 && (
+      <div className="imagens-produto">
+{atualPag > 0 && (
         <button onClick={() => setAtualPag(atualPag - 1)} className="botao esquerda" >
         <img src={arrowLeft} alt="seta a esquerda" />
       </button>
@@ -83,12 +96,13 @@ const Gallary = ({ images, showThumb }) => {
         <img src={arrowRight} alt="seta a direita" />
       </button>
        )}
-    </SectionContainer>
-    {showThumb && (
+        {showThumb && (
     <MiniaturasContainer>
       <GalleryMini thumbs={MiniFotos} onSelect={setAtualPag} />
     </MiniaturasContainer>
-    )};
+    )}
+      </div>
+    </SectionContainer>
    </>
   );
 }

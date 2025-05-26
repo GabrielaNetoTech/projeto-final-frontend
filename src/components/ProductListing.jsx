@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ProductCard from "./ProductCard";
+import { useNavigate } from 'react-router-dom';
 
 const GridContainer = styled.section`
   display: grid;
@@ -58,7 +59,7 @@ const GridContainer = styled.section`
 
 const valorReal = 100 *2; 
 const products = new Array(20).fill(0).map((_, i) => ({
-  id: i,
+  id: i +1,
   image: "/tenis.png",
   name: `K-Swiss V8 - Masculino`,
   price: valorReal,
@@ -66,18 +67,25 @@ const products = new Array(20).fill(0).map((_, i) => ({
 }));
 
 const ProductListing = ({ limit}) => {
+  const navigate = useNavigate()
 
   const displayedProducts = limit ? products.slice(0, limit) : products;
+
+  const handleProductClick = (productId) => {
+    navigate(`/produto/${productId}`);
+  };
 
   return (
     <GridContainer>
       {displayedProducts.map((product) => (
         <ProductCard
           key={product.id}
+          id={product.id}
           image={product.image}
           name={product.name}
           price={product.price}
           priceDiscount={product.priceDiscount}
+          onClick={() => handleProductClick(product.id)}
         />
       ))}
     </GridContainer>

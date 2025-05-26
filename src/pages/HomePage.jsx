@@ -139,7 +139,7 @@ const HomePage = () => {
 
   useEffect(() => {
     const intervalo = setInterval(() => {
-      setControleImage(prevIndex => (prevIndex + 1) % Images.length);
+      setControleImage(prevIndex => (prevIndex + 1) % Images.length); 
     }, 6000); // troca a cada 3 segundos
 
     return () => clearInterval(intervalo); // limpa o intervalo ao desmontar
@@ -190,3 +190,5 @@ const HomePage = () => {
 }
  
 export default HomePage;
+
+

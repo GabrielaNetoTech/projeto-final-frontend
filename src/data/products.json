@@ -1,0 +1,29 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "nome": "K-Swiss V8 - Masculino",
+      "preco": 100,
+      "precoOriginal": 200,
+      "descricao": "Tênis esportivo confortável para o dia a dia. Ideal para caminhadas e atividades casuais.",
+      "categoria": "Esporte e lazer",
+      "marca": "K-Swiss",
+      "genero": "Masculino",
+      "tamanhos": ["39", "40", "41", "42", "43"],
+      "cores": ["#E2E3FF", "#FFE8BC", "#FFC0BC", "#DEC699", "#E8DFCF"],
+      "imagens": [
+        { "src": "/tenis.png" },
+        { "src": "/images/1.png" },
+        { "src": "/images/2.png" },
+        { "src": "/images/3.png" },
+        { "src": "/images/4.png" }
+      ],
+      "especificacoes": {
+        "material": "Couro sintético",
+        "solado": "Borracha",
+        "fechamento": "Cadarço",
+        "peso": "350g"
+      }
+    }
+  ]
+}
