@@ -1,12 +1,21 @@
+//Página de exibição de um produto individual.
+
+//Busca o produto pelo ID da URL.
+
+//Mostra galeria de imagens, detalhes e a caixa de compra (BuyBox).
+
+//Ao final, mostra produtos relacionados.
+
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getProductById } from '../api/products'; // ajuste o caminho conforme necessário
+import { getProductById } from '../acoes/products'; // ajuste o caminho conforme necessário
 import styled from "styled-components";
 import BuyBox from "../components/BuyBox";
 import Gallary from "../components/Gallary";
 import ProductDetails from "../components/ProductDetails";
 import ProductListing from "../components/ProductListing";
 import Section from "../components/Section";
+import variacoes from "../api/products-variation.json"
 
 const ContainerPai = styled.section`
   margin: 0;
@@ -37,7 +46,9 @@ const Product = () => {
   const { id } = useParams(); // Pega o ID da URL
   const [produto, setProduto] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [, setSelecoes] = useState({ tamanho: null, cor: null }); //// estado reservado para uso no BuyBox
 
+  // // Executa a busca do produto quando o ID muda
   useEffect(() => {
     const buscarProduto = async () => {
       setLoading(true);
@@ -45,8 +56,8 @@ const Product = () => {
       try {
         const produtoAPI = await getProductById(id);
 
-        // Imagens mockadas (ajuste os caminhos conforme suas imagens reais)
-        const imagensMock = [
+        // Imagens mockadas (ajuste os caminhos conforme suas imagens reais) //    // Simulação de imagens (mock)
+        const imagensProduto = [
           { src: '/images/1.png' },
           { src: '/images/2.png' },
           { src: '/images/3.png' },
@@ -57,7 +68,8 @@ const Product = () => {
         // Montar o produto final
         const produtoFinal = {
           ...produtoAPI,
-          imagens: imagensMock
+          imagens: imagensProduto,
+          variacoes: variacoes.variacoesProduto
         };
 
         setProduto(produtoFinal);
@@ -74,6 +86,7 @@ const Product = () => {
     }
   }, [id]);
 
+  // Renderizações condicionais
   if (loading) {
     return <div style={{ padding: '2rem', textAlign: 'center' }}>Carregando...</div>;
   }
@@ -90,8 +103,9 @@ const Product = () => {
         </div>
         <div>
           <ProductDetails produto={produto}>
-            <BuyBox produto={produto} />
+            <BuyBox produto={produto} onSelectionChange={setSelecoes} />
           </ProductDetails>
+
         </div>
       </ContainerPai>
       <Produtos>

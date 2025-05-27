@@ -1,3 +1,9 @@
+//Mostra uma lista de opções (cor/tamanho).
+
+//Suporta dois tipos de visual (círculo ou retângulo).
+
+//Permite selecionar uma opção e notifica o componente pai da seleção feita
+
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 
@@ -63,8 +69,14 @@ const ProductOptions = ({
   shape = "square", // "square" ou "circle"
   type = "text",    // "text" ou "color"
   radius = "4px",    // valor do border-radius para squares
+  onSelect = () => {} // <- ADICIONADO: função callback para informar o pai da seleção
 }) => {
   const [selectedOption, setSelectedOption] = useState(null); // controla o valor selecionado
+
+  const handleSelect = (option) => {
+    setSelectedOption(option);
+    onSelect(option); // <- AVISA O COMPONENTE PAI da seleção
+  };
 
   return (
     <OptionWrapper>
@@ -76,7 +88,7 @@ const ProductOptions = ({
           radius={radius}
           option={option}
           selected={selectedOption === option}
-          onClick={() => setSelectedOption(option)}
+          onClick={() => handleSelect(option)} // <- USANDO handleSelect
         >
           {type === "text" ? option : ""}
         </ItemOpcao>

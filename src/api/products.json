@@ -10,6 +10,7 @@
       "marca": "K-Swiss",
       "genero": "Masculino",
       "tamanhos": ["39", "40", "41", "42", "43"],
+      "quantidade": 10,
       "cores": ["#E2E3FF", "#FFE8BC", "#FFC0BC", "#DEC699", "#E8DFCF"],
       "imagens": [
         { "src": "/tenis.png" },

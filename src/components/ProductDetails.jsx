@@ -1,5 +1,9 @@
 import styled from "styled-components"
 import { FaStar } from "react-icons/fa"
+import { useCart } from "./CartContext";
+import { useNavigate } from 'react-router-dom';
+import { cloneElement } from "react";
+import { useState } from "react";
 
 const Teste = styled.div`
     margin: 0;
@@ -10,9 +14,9 @@ const Teste = styled.div`
        font-size: 32px;
        color: #1F1F1F;
        margin-bottom: 8px;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      line-height: 1em; 
+       word-wrap: break-word;
+       overflow-wrap: break-word;
+       line-height: 1em; 
      }
      .referencia{
        font-size: 12px;
@@ -101,18 +105,59 @@ const Teste = styled.div`
      }
 `
 
+const formatarPreco = (valor) => {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2,
+  }).format(valor)
+}
+
 const ProductDetails = ({ children, produto }) => {
+  const [selecoes, setSelecoes] = useState({ tamanho: null, cor: null });
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
+
   if (!produto) {
     return <div>Carregando detalhes do produto...</div>
   }
 
-  const formatarPreco = (valor) => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-      minimumFractionDigits: 2,
-    }).format(valor)
-  }
+  const handleComprar = () => {
+    if (!selecoes.tamanho || !selecoes.cor) {
+      alert("Por favor, selecione um tamanho e uma cor.");
+      return;
+    }
+
+    // Busca a variação correspondente à seleção do usuário
+    let detalheVariacao = null;
+    if (produto.variacoes) {
+      // flatMap todos os detalhes das variações
+      detalheVariacao = produto.variacoes
+        .flatMap(v => v.detalhes)
+        .find(
+          d =>
+            String(d.tamanho) === String(selecoes.tamanho) &&
+            d.cor === selecoes.cor
+        );
+    }
+
+    const corNome = detalheVariacao ? detalheVariacao.corNome : "";
+    const imagemSelecionada = detalheVariacao
+      ? detalheVariacao.imagem
+      : (produto.imagens && produto.imagens.length > 0
+          ? (produto.imagens[0].src || produto.imagens[0])
+          : "");
+
+    addToCart(
+      produto,
+      1,
+      selecoes.tamanho,
+      selecoes.cor,
+      corNome,
+      imagemSelecionada
+    );
+    navigate("/meuspedidos");
+  };
 
   return (
     <Teste>
@@ -133,8 +178,11 @@ const ProductDetails = ({ children, produto }) => {
       </div>
       <h5 className="descricao-title">Descrição do produto</h5>
       <p className="descricao">{produto.descricao}</p>
-      <div className="opcoes-produtos">{children}</div>
-      <button className="button">Comprar</button>
+
+      <div className="opcoes-produtos">
+        {children && cloneElement(children, { onSelectionChange: setSelecoes })}
+      </div>
+      <button className="button" onClick={handleComprar}>Comprar</button>
     </Teste>
   )
 }

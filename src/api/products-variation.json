@@ -1,0 +1,305 @@
+{
+    "variacoesProduto": [
+            {
+              "id": 1,
+              "detalhes": [
+                {
+                  "cor":"#E2E3FF",
+                  "corNome": "Lavanda",
+                  "imagem": "/images/1.png",
+                  "tamanho": 39,
+                   "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "detalhes": [
+                {
+                  "cor":"#E2E3FF",
+                  "corNome": "Lavanda",
+                  "imagem": "/images/1.png",
+                  "tamanho": 40,
+                   "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "detalhes": [
+                {
+                  "cor":"#E2E3FF",
+                  "corNome": "Lavanda",
+                  "imagem": "/images/1.png",
+                  "tamanho": 41,
+                   "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 4,
+              "detalhes": [
+                {
+                  "cor":"#E2E3FF",
+                  "corNome": "Lavanda",
+                  "imagem": "/images/1.png",
+                  "tamanho": 42,
+                   "estoque": 2
+                }
+              ]
+            },
+             {
+              "id": 5,
+              "detalhes": [
+                {
+                  "cor":"#E2E3FF",
+                  "corNome": "Lavanda",
+                  "imagem": "/images/1.png",
+                  "tamanho": 43,
+                   "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "detalhes": [
+                {
+                  "cor":"#FFE8BC",
+                  "corNome": "Navajo Branco",
+                  "imagem": "/images/2.png",
+                  "tamanho": 39,
+                   "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 7,
+              "detalhes": [
+                {
+                  "cor":"#FFE8BC",
+                  "corNome": "Navajo Branco",
+                  "imagem": "/images/2.png",
+                  "tamanho": 40,
+                   "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 8,
+              "detalhes": [
+                {
+                  "cor":"#FFE8BC",
+                  "corNome": "Navajo Branco",
+                  "imagem": "/images/2.png",
+                  "tamanho": 41,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 9,
+              "detalhes": [
+                {
+                  "cor":"#FFE8BC",
+                  "corNome": "Navajo Branco",
+                  "imagem": "/images/2.png",
+                  "tamanho": 42,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 10,
+              "detalhes": [
+                {
+                  "cor":"#FFE8BC",
+                  "corNome": "Navajo Branco",
+                  "imagem": "/images/2.png",
+                  "tamanho": 43,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 11,
+              "detalhes": [
+                {
+                  "cor":"#FFC0BC",
+                  "corNome": "Rosa Claro",
+                  "imagem": "/images/3.png",
+                  "tamanho": 39,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 12,
+              "detalhes": [
+                {
+                  "cor":"#FFC0BC",
+                  "corNome": "Rosa Claro",
+                  "imagem": "/images/3.png",
+                  "tamanho": 40,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 13,
+              "detalhes": [
+                {
+                  "cor":"#FFC0BC",
+                  "corNome": "Rosa Claro",
+                  "imagem": "/images/3.png",
+                  "tamanho": 41,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 14,
+              "detalhes": [
+                {
+                  "cor":"#FFC0BC",
+                  "corNome": "Rosa Claro",
+                  "imagem": "/images/3.png",
+                  "tamanho": 42,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 15,
+              "detalhes": [
+                {
+                  "cor":"#FFC0BC",
+                  "corNome": "Rosa Claro",
+                  "imagem": "/images/3.png",
+                  "tamanho": 43,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 16,
+              "detalhes": [
+                {
+                  "cor":"#DEC699",
+                  "corNome": "Bronzeado",
+                  "imagem": "/images/4.png",
+                  "tamanho": 39,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 17,
+              "detalhes": [
+                {
+                  "cor":"#DEC699",
+                  "corNome": "Bronzeado",
+                  "imagem": "/images/4.png",
+                  "tamanho": 40,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 18,
+              "detalhes": [
+                {
+                  "cor":"#DEC699",
+                  "corNome": "Bronzeado",
+                  "imagem": "/images/4.png",
+                  "tamanho": 41,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 19,
+              "detalhes": [
+                {
+                  "cor":"#DEC699",
+                  "corNome": "Bronzeado",
+                  "imagem": "/images/4.png",
+                  "tamanho": 42,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 20,
+              "detalhes": [
+                {
+                  "cor":"#DEC699",
+                  "corNome": "Bronzeado",
+                  "imagem": "/images/4.png",
+                  "tamanho": 43,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 21,
+              "detalhes": [
+                {
+                  "cor":"#E8DFCF",
+                  "corNome": "Branco Antigo",
+                  "imagem": "/images/5.png",
+                  "tamanho": 39,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 22,
+              "detalhes": [
+                {
+                  "cor":"#E8DFCF",
+                  "corNome": "Branco Antigo",
+                  "imagem": "/images/5.png",
+                  "tamanho": 40,
+                  "estoque": 2
+                }
+              ]
+            },
+            {
+              "id": 23,
+              "detalhes": [
+                {
+                  "cor":"#E8DFCF",
+                  "corNome": "Branco Antigo",
+                  "imagem": "/images/5.png",
+                  "tamanho": 41,
+                  "estoque": 2
+                }
+              ]
+            },    
+            {
+              "id": 24,
+              "detalhes": [
+                {
+                  "cor":"#E8DFCF",
+                  "corNome": "Branco Antigo",
+                  "imagem": "/images/5.png",
+                  "tamanho": 42,
+                  "estoque": 2
+                }
+              ]
+            },  
+            {
+              "id": 25,
+              "detalhes": [
+                {
+                  "cor":"#E8DFCF",
+                  "corNome": "Branco Antigo",
+                  "imagem": "/images/5.png",
+                  "tamanho": 43,
+                  "estoque": 2
+                }
+              ]
+            }
+    ]
+} 
+              

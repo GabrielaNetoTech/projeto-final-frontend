@@ -1,4 +1,4 @@
-import productsData from '../data/products.json';
+import productsData from '../api/products.json';
 
 // Simular delay de API
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
