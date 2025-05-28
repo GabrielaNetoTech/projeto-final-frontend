@@ -1,11 +1,11 @@
-import productsData from '../api/products.json';
+import productsApi from '../api/products.json';
 
 // Simular delay de API
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Gerar os 20 produtos baseados no template
 const generateProducts = () => {
-  const template = productsData.products[0];
+  const template = productsApi.products[0];
   const allProducts = [];
   
   for (let i = 1; i <= 20; i++) {

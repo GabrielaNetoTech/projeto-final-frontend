@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Search, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useCart } from "./CartContext" // ajuste o caminho se necessário
+import { useCart } from "./UseCart"
 
 const HeaderContainer = styled.header`
   * {
@@ -173,7 +173,7 @@ const Header = () => {
             <a className="cadastrar" href="#">Cadastre-se</a>
             <a className="entrar" href="#">Entrar</a>
             <div className="cart-icon" onClick={() => navigate("/meuspedidos")}>
-              <ShoppingCart size={28} color="#474747" />
+              <ShoppingCart size={28} color="#c92071" />
               {quantity > 0 && <div className="cart-count">{quantity}</div>}
             </div>
           </div>

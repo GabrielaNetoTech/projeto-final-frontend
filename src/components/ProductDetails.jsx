@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { FaStar } from "react-icons/fa"
-import { useCart } from "./CartContext";
+import { useCart } from "./UseCart";
 import { useNavigate } from 'react-router-dom';
 import { cloneElement } from "react";
 import { useState } from "react";

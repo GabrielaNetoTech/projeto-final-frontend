@@ -6,7 +6,7 @@
 
 //Permite remover um item ou limpar o carrinho.
 import React from "react";
-import { useCart } from "../components/CartContext";
+import { useCart } from "../components/UseCart";
 
 const ProductViewPage = () => {
   const {
