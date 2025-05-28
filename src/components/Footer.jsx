@@ -7,59 +7,75 @@ const FooterContainer = styled.footer`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-
-.infos-container{
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr auto auto 1fr;
-    column-gap: 2rem;
-    padding: 1rem 4rem;
-}
 
-.digitalcollege{
-    padding: 1rem;
-}
+    .infos-container{
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr auto auto 1fr;
+        column-gap: 2rem;
+        padding: 1rem 4rem;
+    }
 
-.redes-sociais{
-   display: flex;
-   gap: 20px;
-   margin-top: 30px;
-}
-
-.informacoes, .categoria {
-    & ul {
-        margin: 0;
-        padding: 0;
-        & li {
-            list-style: none;
-            line-height: 2em;
+    @media (max-width: 900px) {
+        .infos-container {
+            grid-template-columns: 1fr;
+            row-gap: 2rem;
+            padding: 1.5rem 1rem;
+        }
+        .contatos, .digitalcollege {
+            margin-left: 0;
+            text-align: center;
+        }
+        .rodape {
+            padding: 10px 0;
         }
     }
 
-}
-
-.contatos{
-    margin-left: 50px;
-}
-
-.rodape{
-   text-align: center;
-   padding: 2px;
-    & hr {
-        width: 80%;
-        border: none;
-        border-top: 1px solid #ffff;
+    .digitalcollege{
+        padding: 1rem;
     }
-}
+
+    .redes-sociais{
+       display: flex;
+       gap: 20px;
+       margin-top: 30px;
+       justify-content: center;
+    }
+
+    .informacoes, .categoria {
+        & ul {
+            margin: 0;
+            padding: 0;
+            & li {
+                list-style: none;
+                line-height: 2em;
+            }
+        }
+    }
+
+    .contatos{
+        margin-left: 50px;
+    }
+
+    .rodape{
+       text-align: center;
+       padding: 2px;
+        & hr {
+            width: 80%;
+            border: none;
+            border-top: 1px solid #fff;
+        }
+    }
 `;
 
 const Footer = () => { 
     const Informacoes = [
         { 
             text: "Sobre Drip Store",
-            link: "/sobre"
+            link: "/"
         },
          { 
             text: "Segurança",
@@ -103,7 +119,7 @@ const Footer = () => {
         },
          { 
             text: "Tênis",
-            link: "/tenis"
+            link: "/produtos"
         },
     ]
 

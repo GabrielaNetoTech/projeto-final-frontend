@@ -31,7 +31,7 @@ const InfoSection = ({ title, informations }) => {
             <ul className="ul-infos">
         {informations.map((item, index) => (
                 <li key={index}>
-                    <a href={item.link}>{item.text}</a>
+                <a href={item.link}>{item.text}</a>
                 </li>
                 ))}
              </ul>

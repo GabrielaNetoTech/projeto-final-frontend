@@ -163,7 +163,6 @@ const Header = () => {
               placeholder="Pesquisar produto..."
               value={busca}
               onChange={(e) => setBusca(e.target.value)}
-              onKeyDown={TeclaEnter}
             />
             <button className="lupa" type="submit">
               <Search />

@@ -6,6 +6,7 @@ import { CircleSmall } from "lucide-react";
 import { IoShirtOutline } from "react-icons/io5";
 import { PiPantsLight, PiBaseballCapLight, PiHeadphonesLight } from "react-icons/pi";
 import { GiRunningShoe } from "react-icons/gi";
+import { NavLink } from 'react-router-dom';
 
 const PrincipalContainer = styled.section`
     margin: 0;
@@ -86,37 +87,73 @@ const PrincipalContainer = styled.section`
     }
 `;
 
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none !important;
+  color: #fff !important;
+
+  &:visited, &:active {
+    color: #fff !important;
+    text-decoration: none !important;
+  }
+`
+
 const ColecaoContainer = styled.section`
   width: 100%;
-  margin: 30px 0 0 0;
+  margin: 0;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #F8F9FE;
+
   .colecao h5 {
     color: #474747;
     font-size: 22px;
-    margin: 8px;
   }
+
   .imagens-colecao {
     display: flex;
     gap: 10px;
     width: 100%;
-    & img {
-      width: 50%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* permite quebrar linha */
+
+    img {
+      width: 40%;
+      min-width: 120px;
+      max-width: 250px;
       border-radius: 8px;
+      object-fit: cover;
+      flex: 1 1 120px;
+      height: auto;
+      
+    }
+  }
+
+  /* Ajuste para telas menores */
+  @media (max-width: 700px) {
+    .imagens-colecao {
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      img {
+        width: 80vw;
+        max-width: 95vw;
+        min-width: 0;
+      }
     }
   }
 `;
 
-const TesteContainer = styled.section`
+const ProdutosContainer = styled.section`
   width: 100%;
-  margin: 30px 0 0 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #F8F9FE;
 `;
 
 const ColecaoMiniatura = styled.section`
@@ -129,7 +166,6 @@ const ColecaoMiniatura = styled.section`
   & h5 {
     color: #474747;
     font-size: 22px;
-    margin: 8px;
   }
 `;
 
@@ -197,8 +233,6 @@ const Miniatura = styled.div`
 
 const Oferta = styled.section`
   width: 100%;
-  margin: 25px 0 0 0;
-  padding: 24px 0;
   background: #fff;
   display: flex;
   align-items: center;
@@ -260,7 +294,7 @@ const Oferta = styled.section`
       font-size: 14px;
       cursor: pointer;
       margin-top: 0.6rem;
-    }
+    } 
   }
 `;
 
@@ -304,7 +338,7 @@ const HomePage = () => {
             <h5>Melhores ofertas personalizadas</h5>
             <h1>Queima de <br /> estoque Nike 🔥</h1>
             <p>Consequat culpa exercitation mollit nisi excepteur do <br /> do tempor laboris eiusmod irure consectetur.</p>
-            <button>Ver ofertas</button>
+            <button><StyledNavLink to="/produtos">  Ver ofertas</StyledNavLink></button>
           </div>
         </section>
         <div className='dots'>
@@ -373,9 +407,9 @@ const HomePage = () => {
           </Miniatura>
         </MiniaturaNav>
       </ColecaoMiniatura>
-      <TesteContainer>
+      <ProdutosContainer>
         <Produtos />
-      </TesteContainer>
+      </ProdutosContainer>
       <Oferta>
         <div>
           <img src="/home-icons/oferta.png" alt="" />
@@ -384,7 +418,7 @@ const HomePage = () => {
           <h5>Melhores ofertas personalizadas</h5>
           <h2>Air Jordan edição de colecionador</h2>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate odio reiciendis ipsam laborum. Facilis cum corporis voluptate doloribus at iste ipsa deleniti nam! Repellendus repellat sequi, voluptatibus enim voluptatum magni?</p>
-          <button>Ver ofertas</button>
+          <button><StyledNavLink to="/produtos">  Ver ofertas</StyledNavLink></button>
         </div>
       </Oferta>
     </>
