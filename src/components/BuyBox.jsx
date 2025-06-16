@@ -1,35 +1,33 @@
-//Esse componente permite ao usuário selecionar uma cor e um tamanho de produto.
+// Esse componente permite ao usuário selecionar uma cor e um tamanho de produto.
 
 import { useState, useEffect } from "react";
-import ProductOptions from "./ProductOptions"
-//useState: Hook para controlar estado local (ex: tamanho e cor selecionados).
-//useEffect: Hook para executar efeitos colaterais (ex: comunicar mudanças).
-//ProductOptions: Componente que renderiza opções clicáveis de tamanhos e cores.
-const BuyBox = ({ produto, onSelectionChange }) => {
-//: Armazena o tamanho selecionado.
-  const [selectedSize, setSelectedSize] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(null);
-//: Armazena a cor selecionada.
-  
-//Toda vez que o tamanho ou cor muda, chama a função onSelectionChange, informando ao componente pai as seleções feitas.
+import ProductOptions from "./ProductOptions";
 
-//Exibe mensagem enquanto o produto ainda não está carregado.
+// Componente principal: recebe o produto e uma função de callback
+const BuyBox = ({ produto, onSelectionChange }) => {
+  // Estado para armazenar o tamanho selecionado
+  const [selectedSize, setSelectedSize] = useState(null);
+  // Estado para armazenar a cor selecionada
+  const [selectedColor, setSelectedColor] = useState(null);
+
+  // Sempre que o tamanho ou cor mudar, chama o callback avisando ao componente pai
   useEffect(() => {
-  if (onSelectionChange) {
+    if (onSelectionChange) {
       onSelectionChange({
-         tamanho: selectedSize,
+        tamanho: selectedSize,
         cor: selectedColor
       });
     }
   }, [selectedSize, selectedColor, onSelectionChange]);
 
+  // Se o produto ainda não foi carregado (undefined/null), mostra mensagem de loading
   if (!produto) {
     return <div>Carregando opções...</div>;
   }
 
   return (
     <>
-    {/* //Mostra os tamanhos disponíveis e define qual foi selecionado. */}
+      {/* Mostra as opções de tamanho e registra o tamanho selecionado */}
       <h5>Tamanho</h5>
       <ProductOptions
         options={produto.tamanhos || ["39", "40", "41", "42", "43"]}
@@ -39,8 +37,7 @@ const BuyBox = ({ produto, onSelectionChange }) => {
         onSelect={(option) => setSelectedSize(option)} // <- CAPTURA TAMANHO
       />
 
-{/* //Mostra as cores disponíveis e define qual foi selecionada.
- */}
+      {/* Mostra as opções de cor e registra a cor selecionada */}
       <h5>Cor</h5>
       <ProductOptions
         options={produto.cores || ["#E2E3FF", "#FFE8BC", "#FFC0BC", "#DEC699", "#E8DFCF"]}
@@ -48,9 +45,8 @@ const BuyBox = ({ produto, onSelectionChange }) => {
         type="color"
         onSelect={(option) => setSelectedColor(option)} // <- CAPTURA COR
       />
-
     </>
   )
 }
 
-export default BuyBox
+export default BuyBox;

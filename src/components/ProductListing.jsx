@@ -1,7 +1,10 @@
+// Exibe uma grade de cards de produto. Ao clicar, navega para página do produto.
+
 import styled from "styled-components";
 import ProductCard from "./ProductCard";
 import { useNavigate } from 'react-router-dom';
 
+// Grid responsivo de produtos
 const GridContainer = styled.section`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -10,12 +13,10 @@ const GridContainer = styled.section`
   width: 100%;
   box-sizing: border-box;
   justify-items: center;
-
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-
   .cardimagem {
     background-color: white;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
@@ -62,7 +63,8 @@ const GridContainer = styled.section`
   }
 `;
 
-const valorReal = 100 * 2; 
+// Mock de produtos para exibir (simula 20 produtos)
+const valorReal = 100 * 2;
 const products = new Array(20).fill(0).map((_, i) => ({
   id: i + 1,
   image: "/tenis.png",
@@ -74,9 +76,10 @@ const products = new Array(20).fill(0).map((_, i) => ({
 const ProductListing = ({ limit }) => {
   const navigate = useNavigate();
 
+  // Mostra apenas até o limite informado, se houver
   let displayedProducts = limit ? products.slice(0, limit) : products;
-  // Optionally implement ordering logic based on 'order' prop here.
 
+  // Ao clicar no produto, navega para página dele
   const handleProductClick = (productId) => {
     navigate(`/produto/${productId}`);
   };
@@ -97,4 +100,5 @@ const ProductListing = ({ limit }) => {
     </GridContainer>
   );
 };
+
 export default ProductListing;

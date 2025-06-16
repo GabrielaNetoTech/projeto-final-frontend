@@ -338,7 +338,8 @@ const HomePage = () => {
             <h5>Melhores ofertas personalizadas</h5>
             <h1>Queima de <br /> estoque Nike 🔥</h1>
             <p>Consequat culpa exercitation mollit nisi excepteur do <br /> do tempor laboris eiusmod irure consectetur.</p>
-            <button><StyledNavLink to="/produtos">  Ver ofertas</StyledNavLink></button>
+           <StyledNavLink to="/produtos">  
+            <button>Ver ofertas</button></StyledNavLink>
           </div>
         </section>
         <div className='dots'>

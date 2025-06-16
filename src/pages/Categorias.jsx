@@ -1,14 +1,9 @@
-import BuyBox from "../components/BuyBox";
-import ProductDetails from "../components/ProductDetails";
-
-
 const Categorias = () => {
-    return ( 
-    <h1>Categoria</h1>
-    );
-}
- 
+  return (
+    <div>
+      <h1>Categorias</h1>
+    </div>
+  );
+};
+
 export default Categorias;
-
-
-

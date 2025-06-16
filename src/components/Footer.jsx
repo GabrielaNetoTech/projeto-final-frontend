@@ -8,6 +8,7 @@ const FooterContainer = styled.footer`
     padding: 0;
     box-sizing: border-box;
     width: 100%;
+    font-size: 0.9rem;
 
     .infos-container{
         width: 100%;
@@ -42,7 +43,6 @@ const FooterContainer = styled.footer`
        display: flex;
        gap: 20px;
        margin-top: 30px;
-       justify-content: center;
     }
 
     .informacoes, .categoria {
@@ -62,7 +62,7 @@ const FooterContainer = styled.footer`
 
     .rodape{
        text-align: center;
-       padding: 2px;
+       padding: 1px;
         & hr {
             width: 80%;
             border: none;
