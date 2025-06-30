@@ -1,247 +1,353 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import gmailSvg from "../assets/gmail-svgrepo-com.svg";
+import facebookSvg from "../assets/facebook-1-svgrepo-com.svg";
 
-// Cores do layout
-const bgColor = "#faf8fd";
-const white = "#fff";
-const primary = "#C92071";
-const border = "#e9e6f0";
-const inputBg = "#faf8fc";
-const text = "#222";
-const label = "#1d1d1d";
-const subtitle = "#363636";
-const checkbox = "#C92071";
-
-const PageWrapper = styled.div`
-  background: ${bgColor};
+const Container = styled.div`
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #bbbbf4 0%, #dadafb 100%);
+  padding: 24px;
 `;
 
-const FormContainer = styled.div`
-  background: ${white};
-  border-radius: 6px;
-  padding: 36px 32px 24px 32px;
-  width: 100%;
-  max-width: 600px;
-  margin-bottom: 28px;
-  @media (max-width: 700px) {
-    padding: 20px 10px 16px 10px;
-  }
+const Box = styled.div`
+  background: #fff;
+  padding: 40px 32px 32px 32px;
+  border-radius: 12px;
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.07);
+  width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index: 1;
 `;
 
 const Title = styled.h1`
-  color: ${text};
-  font-size: 1.8rem;
-  margin-bottom: 15px;
-  margin-top: 65px;
-  width: 100%;
-  max-width: 650px;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
 `;
 
-const Section = styled.div`
-  margin-bottom: 4px;
-`;
-
-const SectionTitle = styled.h5`
-  color: ${subtitle};
-  font-weight: 600;
-  font-size: 1.05rem;
-  margin: 0 0 12px 0;
-`;
-
-const Divider = styled.hr`
-  border: none;
-  border-top: 1px solid ${border};
-  margin: 0 0 22px 0;
+const Subtitle = styled.h5`
+  margin: 0 0 8px 0;
+  color: #555;
+  font-weight: 400;
+  text-align: center;
+  a {
+    color: #1976d2;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 20px;
-`;
-
-const FormField = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 `;
 
 const Label = styled.label`
-  color: ${label};
-  font-weight: bold;
-  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+`;
+
+const InputRow = styled.div`
+  display: flex;
+  gap: 10px;
 `;
 
 const Input = styled.input`
-  width: 95%;
-  border: 1px solid ${border};
-  background: ${inputBg};
-  padding: 14px;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
   font-size: 1rem;
-  outline: none;
-  transition: border 0.2s;
-  &::placeholder {
-    color: #b0aeb8;
-  }
-  &:focus {
-    border-color: ${primary};
-    background: #fff;
-  }
-`;
-
-const SecondFormContainer = styled(FormContainer)`
-  margin-top: 0;
-`;
-
-const FooterContainer = styled.div`
-  width: 100%;
-  max-width: 700px;
-  padding: 0 20px 79px 20px;
   box-sizing: border-box;
-  @media (max-width: 700px) {
-    padding: 0 10px 16px 10px;
-  }
-`;
-
-const ConsentWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin: 20px 0 28px 0;
-  width: 100%;
-`;
-
-const Checkbox = styled.input.attrs({ type: "checkbox" })`
-  accent-color: ${checkbox};
-  width: 18px;
-  height: 18px;
-  margin-top: 2px;
-  flex-shrink: 0;
-`;
-
-const ConsentText = styled.h6`
-  margin: 0;
-  color: #363636;
-  font-size: 0.96rem;
-  font-weight: 400;
-  line-height: 1.5;
-  flex: 1;
 `;
 
 const Button = styled.button`
   width: 100%;
-  background: ${primary};
+  background: #C92071;
   color: #fff;
   border: none;
-  padding: 14px 0;
+  padding: 12px 0;
   border-radius: 6px;
   font-weight: 600;
-  font-size: 1.09rem;
+  font-size: 1rem;
   cursor: pointer;
+  margin-top: 6px;
   transition: background 0.2s;
   &:hover {
     background: #a3185d;
   }
 `;
 
+const SocialRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+`;
 
+const SocialText = styled.span`
+  color: #888;
+  font-size: 1rem;
+  white-space: nowrap;
+`;
+
+const SocialLogin = styled.div`
+  display: flex;
+  gap: 16px;
+`;
+
+const IconWrapper = styled.div`
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: box-shadow .2s;
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    background: #fff;
+  }
+  img {
+    width: 24px;
+    height: 24px;
+  }
+`;
+
+const SneakerImage = styled.img`
+  height: 70vh;
+  min-height: 400px;
+  max-height: 90vh;
+  width: auto;
+  object-fit: cover;
+  margin-left: 48px;
+  border-radius: 16px;
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;
 
 const FormsCadastro = () => {
-  const formPessoalRef = useRef(null);
-  const formEntregaRef = useRef(null);
+  const [form, setForm] = useState({
+    nome: "",
+    email: "",
+    cpf: "",
+    telefone: "",
+    rua: "",
+    numero: "",
+    complemento: "",
+    bairro: "",
+    cidade: "",
+    estado: "",
+    cep: "",
+    senha: "",
+  });
+  const [erro, setErro] = useState("");
+  const { register } = useAuth();
   const navigate = useNavigate();
 
-  // Validação dos dois forms ao clicar em criar conta
-  const handleCriarConta = (e) => {
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    const isPessoalValid = formPessoalRef.current.reportValidity();
-    const isEntregaValid = formEntregaRef.current.reportValidity();
-
-    if (!isPessoalValid || !isEntregaValid) {
-      // O navegador já mostra os alerts dos campos obrigatórios
-      return;
+    // Validação básica
+    for (const key in form) {
+      if (!form[key]) {
+        setErro("Preencha todos os campos.");
+        return;
+      }
     }
-
-    // Aqui vai a integração com o backend no futuro
-    alert("Conta criada com sucesso!");
-    navigate("/login"); // Ou "/login", ou "/" se preferir.
+    const res = register(form.email, form.senha, form); // Passa todos os dados
+    if (res.success) {
+      navigate("/login"); // Redireciona para login após cadastro!
+    } else {
+      setErro(res.message);
+    }
   };
 
   return (
-    <PageWrapper>
-      <Title>Criar Conta</Title>
-      <FormContainer>
-        <Section>
-          <SectionTitle>Informações Pessoais</SectionTitle>
-          <Divider />
-          <StyledForm ref={formPessoalRef}>
-            <FormField>
-              <Label htmlFor="nome">Nome Completo *</Label>
-              <Input id="nome" name="nome" type="text" placeholder="Insira seu nome" required />
-            </FormField>
-            <FormField>
-              <Label htmlFor="cpf">CPF *</Label>
-              <Input id="cpf" name="cpf" type="number" inputMode="numeric" placeholder="Insira seu CPF" required />
-            </FormField>
-            <FormField>
-              <Label htmlFor="email">E-mail *</Label>
-              <Input id="email" name="email" type="email" placeholder="Insira seu email" required />
-            </FormField>
-            <FormField>
-              <Label htmlFor="celular">Celular *</Label>
-              <Input id="celular" name="celular" type="number" inputMode="numeric" placeholder="Insira seu celular" required />
-            </FormField>
-          </StyledForm>
-        </Section>
-      </FormContainer>
-      <SecondFormContainer>
-        <Section>
-          <SectionTitle>Informações de Entrega</SectionTitle>
-          <Divider />
-          <StyledForm ref={formEntregaRef}>
-            <FormField>
-              <Label htmlFor="endereco">Endereço *</Label>
-              <Input id="endereco" name="endereco" type="text" placeholder="Insira seu endereço" required />
-            </FormField>
-            <FormField>
-              <Label htmlFor="bairro">Bairro *</Label>
-              <Input id="bairro" name="bairro" type="text" placeholder="Insira seu bairro" required />
-            </FormField>
-            <FormField>
-              <Label htmlFor="cidade">Cidade *</Label>
-              <Input id="cidade" name="cidade" type="text" placeholder="Insira sua cidade" required />
-            </FormField>
-            <FormField>
-              <Label htmlFor="cep">CEP *</Label>
-              <Input id="cep" name="cep" type="number" placeholder="Insira seu CEP" required />
-            </FormField>
-            <FormField>
-              <Label htmlFor="numero">Número *</Label>
-              <Input id="numero" name="numero" type="number" inputMode="numeric" placeholder="Insira o número da residência" required />
-            </FormField>
-            <FormField>
-              <Label htmlFor="complemento">Complemento</Label>
-              <Input id="complemento" name="complemento" type="text" placeholder="Insira complemento" />
-            </FormField>
-          </StyledForm>
-        </Section>
-      </SecondFormContainer>
-      <FooterContainer>
-        <ConsentWrapper>
-          <Checkbox id="consent" name="consent" />
-          <ConsentText>
-            Quero receber por email ofertas e novidades das lojas da Digital Store. A frequência de envios pode variar de acordo com a interação do cliente.
-          </ConsentText>
-        </ConsentWrapper>
-        <Button type="button" onClick={handleCriarConta}>Criar Conta</Button>
-      </FooterContainer>
-    </PageWrapper>
+    <Container>
+      <Box>
+        <Title>Cadastro</Title>
+        <Subtitle>
+          Já possui uma conta? <Link to="/login">Entre aqui</Link>.
+        </Subtitle>
+        <StyledForm onSubmit={handleSubmit} autoComplete="off">
+          <Label htmlFor="nome">Nome completo*</Label>
+          <Input
+            id="nome"
+            name="nome"
+            type="text"
+            placeholder="Seu nome completo"
+            value={form.nome}
+            onChange={handleChange}
+            required
+          />
+
+          <InputRow>
+            <div style={{ flex: 2 }}>
+              <Label htmlFor="email">Email*</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Seu e-mail"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div style={{ flex: 1 }}>
+              <Label htmlFor="cpf">CPF*</Label>
+              <Input
+                id="cpf"
+                name="cpf"
+                type="text"
+                placeholder="000.000.000-00"
+                value={form.cpf}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </InputRow>
+
+          <InputRow>
+            <div style={{ flex: 1 }}>
+              <Label htmlFor="telefone">Telefone*</Label>
+              <Input
+                id="telefone"
+                name="telefone"
+                type="text"
+                placeholder="(99) 99999-9999"
+                value={form.telefone}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div style={{ flex: 1 }}>
+              <Label htmlFor="senha">Senha*</Label>
+              <Input
+                id="senha"
+                name="senha"
+                type="password"
+                placeholder="Crie uma senha"
+                value={form.senha}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </InputRow>
+
+          <Label htmlFor="rua">Endereço*</Label>
+          <InputRow>
+            <Input
+              id="rua"
+              name="rua"
+              type="text"
+              placeholder="Rua"
+              value={form.rua}
+              onChange={handleChange}
+              required
+              style={{ flex: 2 }}
+            />
+            <Input
+              id="numero"
+              name="numero"
+              type="text"
+              placeholder="Número"
+              value={form.numero}
+              onChange={handleChange}
+              required
+              style={{ flex: 1 }}
+            />
+            <Input
+              id="complemento"
+              name="complemento"
+              type="text"
+              placeholder="Comp."
+              value={form.complemento}
+              onChange={handleChange}
+              style={{ flex: 1 }}
+            />
+          </InputRow>
+
+          <InputRow>
+            <Input
+              id="bairro"
+              name="bairro"
+              type="text"
+              placeholder="Bairro"
+              value={form.bairro}
+              onChange={handleChange}
+              required
+              style={{ flex: 1 }}
+            />
+            <Input
+              id="cidade"
+              name="cidade"
+              type="text"
+              placeholder="Cidade"
+              value={form.cidade}
+              onChange={handleChange}
+              required
+              style={{ flex: 1 }}
+            />
+            <Input
+              id="estado"
+              name="estado"
+              type="text"
+              placeholder="UF"
+              value={form.estado}
+              onChange={handleChange}
+              required
+              style={{ flex: 0.5 }}
+              maxLength={2}
+            />
+            <Input
+              id="cep"
+              name="cep"
+              type="text"
+              placeholder="CEP"
+              value={form.cep}
+              onChange={handleChange}
+              required
+              style={{ flex: 1 }}
+            />
+          </InputRow>
+
+          {erro && <div style={{ color: "red", marginBottom: "8px" }}>{erro}</div>}
+          <Button type="submit">Cadastrar</Button>
+        </StyledForm>
+        <SocialRow>
+          <SocialText>ou cadastre-se com</SocialText>
+          <SocialLogin>
+            <a href="#" title="Cadastro com Gmail" aria-label="Cadastro com Gmail">
+              <IconWrapper>
+                <img src={gmailSvg} alt="Gmail" />
+              </IconWrapper>
+            </a>
+            <a href="#" title="Cadastro com Facebook" aria-label="Cadastro com Facebook">
+              <IconWrapper>
+                <img src={facebookSvg} alt="Facebook" />
+              </IconWrapper>
+            </a>
+          </SocialLogin>
+        </SocialRow>
+      </Box>
+      <SneakerImage src="shoes.png" alt="Tênis" />
+    </Container>
   );
 };
 

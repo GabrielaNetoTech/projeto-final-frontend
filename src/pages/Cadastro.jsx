@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import styled from "styled-components";
 import gmailSvg from "../assets/gmail-svgrepo-com.svg";
 import facebookSvg from "../assets/facebook-1-svgrepo-com.svg";
@@ -9,11 +11,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-    90deg,
-    #bbbbf4 0%,
-    #dadafb 100%
-  );
+  background: linear-gradient(90deg, #bbbbf4 0%, #dadafb 100%);
   padding: 24px;
 `;
 
@@ -148,39 +146,75 @@ const SneakerImage = styled.img`
   }
 `;
 
-const CadastroPage = () => (
-  <Container>
-    <Box>
-      <Title>Crie sua conta</Title>
-      <Subtitle>
-        Já possui uma conta? Entre <a href="#">aqui</a>.
-      </Subtitle>
-      <StyledForm>
-        <Label htmlFor="email">Email*</Label>
-        <Input id="email" type="email" placeholder="Insira seu email" required />
-        <Button type="submit">Criar Conta</Button>
-      </StyledForm>
-      <SocialRow>
-        <SocialText>ou faça login com</SocialText>
-        <SocialLogin>
-          <a href="#" title="Login com Gmail" aria-label="Login com Gmail">
-            <IconWrapper>
-              <img src={gmailSvg} alt="Gmail" />
-            </IconWrapper>
-          </a>
-          <a href="#" title="Login com Facebook" aria-label="Login com Facebook">
-            <IconWrapper>
-              <img src={facebookSvg} alt="Facebook" />
-            </IconWrapper>
-          </a>
-        </SocialLogin>
-      </SocialRow>
-    </Box>
-    <SneakerImage
-      src="shoes.png"
-      alt="Tênis"
-    />
-  </Container>
-);
+const CadastroPage = () => {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [erro, setErro] = useState("");
+  const { register } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email || !senha) {
+      setErro("Preencha email e senha.");
+      return;
+    }
+    const res = register(email, senha);
+    if (res.success) {
+      navigate("/painel");
+    } else {
+      setErro(res.message);
+    }
+  };
+
+  return (
+    <Container>
+      <Box>
+        <Title>Crie sua conta</Title>
+        <Subtitle>
+          Já possui uma conta? Entre <Link to="/login">aqui</Link>.
+        </Subtitle>
+        <StyledForm onSubmit={handleSubmit}>
+          <Label htmlFor="email">Email*</Label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="Insira seu email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <Label htmlFor="senha">Senha*</Label>
+          <Input
+            id="senha"
+            type="password"
+            placeholder="Insira sua senha"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            required
+          />
+          {erro && <div style={{ color: "red", marginBottom: "8px" }}>{erro}</div>}
+          <Button type="submit">Criar Conta</Button>
+        </StyledForm>
+        <SocialRow>
+          <SocialText>ou faça login com</SocialText>
+          <SocialLogin>
+            <a href="#" title="Login com Gmail" aria-label="Login com Gmail">
+              <IconWrapper>
+                <img src={gmailSvg} alt="Gmail" />
+              </IconWrapper>
+            </a>
+            <a href="#" title="Login com Facebook" aria-label="Login com Facebook">
+              <IconWrapper>
+                <img src={facebookSvg} alt="Facebook" />
+              </IconWrapper>
+            </a>
+          </SocialLogin>
+        </SocialRow>
+      </Box>
+      <SneakerImage src="shoes.png" alt="Tênis"/>
+    </Container>
+  );
+};
 
 export default CadastroPage;

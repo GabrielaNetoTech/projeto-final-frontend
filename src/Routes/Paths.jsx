@@ -13,72 +13,45 @@ import UserLayout from "../layout/UserLayout";
 import MinhasInformacoesPage from "../pages/MinhasInformacoesPage";
 import FinalizarCompras from "../pages/FinalizarCompraPage";
 import ProtectedRoute from "../components/ProtectedRoute";
-import { useAuth } from "../contexts/AuthContext";
-
 
 const nomeUsuario = "Gabriela";
 
-
 const Paths = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Rotas públicas */}
+        <Route path="/" element={<PageLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="produtos" element={<Produtos />} />
+          <Route path="produto/:id" element={<Product />} />
+          <Route path="produtos/meucarrinho" element={<MeuCarrinho />} />
+        </Route>
 
-    const { isAuthenticated } = useAuth();      
-    // Aqui você pode pegar o estado de autenticação do contexto ou de onde preferir
+        {/* Rotas de login/cadastro */}
+        <Route element={<AuthLayout />}>
+          <Route path="/cadastro" element={<FormsCadastro />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Route>
 
-    return ( 
-        <BrowserRouter>
-            <Routes>
-                {/* Rotas públicas */}
-                <Route path="/" element={<PageLayout/>}>
-                    <Route index element={ <HomePage /> } />
-                    <Route path="produtos" element={<Produtos />} />
-                    <Route path="produto/:id" element={<Product />} />
-                    <Route path="produtos/meucarrinho" element={<MeuCarrinho />} /> 
-                </Route>
+        {/* Rotas privadas/autenticadas */}
+        <Route
+          element={
+            <ProtectedRoute>
+              <UserLayout nomeUsuario={nomeUsuario} />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/meuspedidos" element={<MeusPedidos />} />
+          <Route path="/meuspedidos/minhasinformacoes" element={<MinhasInformacoesPage />} />
+          <Route path="/finalizarcompras" element={<FinalizarCompras />} />
+        </Route>
 
-                 {/* Rotas de login/cadastro */}
-                <Route element={<AuthLayout />}>
-                    <Route path="/cadastro" element={<FormsCadastro />} />
-                    <Route path="/login" element={<LoginPage />} />
-                </Route>
+        {/* Rota NotFound */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-              {/* Rotas privadas/autenticadas */}
-                <Route
-                  path="/meuspedidos"
-                  element={
-                    <ProtectedRoute isAuthenticated={isAuthenticated}>
-                      <UserLayout nomeUsuario={nomeUsuario}>
-                        <MeusPedidos />
-                      </UserLayout>
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/meuspedidos/minhasinformacoes"
-                  element={
-                    <ProtectedRoute isAuthenticated={isAuthenticated}>
-                      <UserLayout nomeUsuario={nomeUsuario}>
-                        <MinhasInformacoesPage />
-                      </UserLayout>
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/finalizarcompras"
-                  element={
-                    <ProtectedRoute isAuthenticated={isAuthenticated}>
-                      <UserLayout nomeUsuario={nomeUsuario}>
-                        <FinalizarCompras />
-                      </UserLayout>
-                    </ProtectedRoute>
-                  }
-                />
-
-
-                {/* Rota NotFound */}
-                <Route path="*" element={<NotFound/>} />
-            </Routes>
-        </BrowserRouter>
-    );
-}
- 
 export default Paths;
